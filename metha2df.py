@@ -22,7 +22,8 @@ import numpy as np
 from sklearn.preprocessing import LabelEncoder
 import kmapper
 from sklearn import datasets,cluster
-import networkx as nx
+
+arXiv_prefix = '{http://arxiv.org/OAI/arXiv/}'
 
 ##
 def parse_author(a):
@@ -34,7 +35,6 @@ def parse_author(a):
 
 def metha2df(dirname):
     files = glob.glob(os.path.join(dirname,'**/*.xml.gz'), recursive=True)
-    arXiv_prefix = '{http://arxiv.org/OAI/arXiv/}'
     identifier, title, authors, abstract, categories, submitted, time = ([] for i in range(7))
 
     ## process files
@@ -140,12 +140,15 @@ color = le.transform(label)
 f = df['time']  # filter is submission date
 #f = km.project(v) 
 
-#%% Kepler Mapper (use only 200000 samples)
-n = 200000
+#%% Kepler Mapper (use only 50000 samples)
+n = 50000
 km = kmapper.KeplerMapper()
-graph = km.map(X=v[:n], lens=f[:n], overlap_perc=0.05,
-                clusterer=cluster.AgglomerativeClustering(n_clusters=5,linkage="complete",affinity="cosine"))
-nx_graph = kmapper.adapter.to_nx(graph)
-nx.draw(nx_graph)
+## TODO: parameter tuning
+graph = km.map(X=v[:n], lens=f[:n], overlap_perc=0.50,
+                clusterer=cluster.DBSCAN(eps=0.2, min_samples=5, metric="cosine"))
+#                clusterer=cluster.AgglomerativeClustering(n_clusters=5,linkage="complete",affinity="cosine"))
 html = km.visualize(graph, color_function=color, custom_tooltips=df['categories'], path_html=args.output)
 
+#import networkx as nx
+#nx_graph = kmapper.adapter.to_nx(graph)
+#nx.draw(nx_graph)
