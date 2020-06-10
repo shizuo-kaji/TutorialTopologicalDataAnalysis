@@ -14,6 +14,9 @@ This includes
 - Dimension reduction preserving topological features
 - Visualisation revealing the shape of data
 
+## Deep Learning X TDA
+How Deep Learning and Persistent homology can be combined is demonstrated [here](https://github.com/shizuo-kaji/HomologyCNN).
+
 ## NLP Example (vectorise and visualise)
 As an example of Natural Language Processing, we look at maths papers on arXiv.
 This example runs only locally and not on Google Colab.
