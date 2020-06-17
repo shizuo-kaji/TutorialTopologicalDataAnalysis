@@ -40,7 +40,7 @@ I did not tune parameters seriously, but I hope this example serves as a startin
 ```
   python metha2df.py -o arxiv_mapper.html
 ```
-At the initial run, it produces picked dataframe "math_2007.pkl" containing Metadata.
+At the initial run, it produces a pickled dataframe "math_2007.pkl" containing Metadata.
 Then, Doc2Vec model files "doc2vec_arxiv.model" and "doc2vec_arxiv.model.docvecs.vectors_docs.npy".
 This process takes long.
 For the second run, it loads learnt model and just produce the visualisation.
