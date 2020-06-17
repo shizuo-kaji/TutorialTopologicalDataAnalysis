@@ -21,7 +21,7 @@ How Deep Learning and Persistent homology can be combined is demonstrated [here]
 As an example of Natural Language Processing, we look at maths papers on arXiv.
 This example runs only locally and not on Google Colab.
 
-I did not tune parameters seriously, but I hope this erves as a starting point for other NLP applications.
+I did not tune parameters seriously, but I hope this example serves as a starting point for more serious NLP applications.
 
 - install gensim and nltk, if you do not have them
 ```
