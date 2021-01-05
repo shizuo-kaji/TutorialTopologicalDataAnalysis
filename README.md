@@ -48,4 +48,7 @@ For a good visualisation, parameters for both Doc2vec and Mapper should be tuned
 
 - Open arxiv_mapper.html in a browser
 
+## Reference
+
+- [Persistent homology - An introduction via interactive examples](https://iuricichf.github.io/ICT/index.html) provides a quick access to the theory of persistent homology.
 
