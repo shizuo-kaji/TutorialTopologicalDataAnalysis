@@ -28,7 +28,7 @@ I did not tune parameters seriously, but I hope this example serves as a startin
   conda install gensim nltk
   pip install kmapper
 ```
-- install [Mehta](https://github.com/miku/metha): e.g., download [binary](https://github.com/miku/metha/releases) and
+- install [mehta](https://github.com/miku/metha): e.g., (if you are a linux user) download [binary](https://github.com/miku/metha/releases) and
 ```
   sudo apt install ./metha_?.?.??_amd64.deb
 ```
