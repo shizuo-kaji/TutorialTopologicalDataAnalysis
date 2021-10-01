@@ -17,7 +17,7 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.stem.lancaster import LancasterStemmer as st
 from gensim import models
 import gensim
-from gensim.models.doc2vec import LabeledSentence,TaggedDocument
+from gensim.models.doc2vec import TaggedDocument
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
 import kmapper
@@ -105,16 +105,19 @@ def fit_doc2vec(df):
 parser = argparse.ArgumentParser()
 parser.add_argument('--metha_dir', default='.metha', type=str, help='Directory containing metha files')
 parser.add_argument('--df_name', '-d', default='math_2007.pkl', type=str, help='name of the dataframe file')
+parser.add_argument('--n_samples', '-n', default=50000, type=int, help='the number of samples to visualise')
 parser.add_argument('--model', '-m', default='doc2vec_arxiv.model', type=str, help='name of the doc2vec model')
 parser.add_argument('--output', '-o', default='output.html', type=str, help='name of the output html file')
 args = parser.parse_args()
 
 ## Main
+# parse downloaded data by metha and compile into a dataframe
 if os.path.isfile(args.df_name):
+    print("reading database from file: ", args.df_name)
     with open(args.df_name,'rb') as f:
         df = pickle.load(f)
 else:
-    print("Parsing Metha files...")
+    print("Parsing metha files...")
     df = metha2df(args.metha_dir)
     with open(args.df_name, 'wb') as f:
         pickle.dump(df, f)
@@ -122,17 +125,19 @@ else:
 #print(df.keys())
 #print(df['abstract'][0])
 
+# fit the doc2vec model to the dataframe
 if os.path.isfile(args.model):
+    print("reading the model from file: ", args.model)
     model = models.Doc2Vec.load(args.model)
 else:
     print("Fitting Doc2Vec...")
     model = fit_doc2vec(df)
     model.save(args.model)
 
-## Visualisation
+# Visualisation
 print("Creating Visualisation...")
-v = np.load(args.model+".docvecs.vectors_docs.npy")
-#%% define label and filter
+v = np.load(args.model+".dv.vectors.npy")
+# define label and filter
 label = [w[0] for w in df['categories']]
 le = LabelEncoder()
 le = le.fit(label)
@@ -141,13 +146,16 @@ f = df['time']  # filter is submission date
 #f = km.project(v) 
 
 #%% Kepler Mapper (use only 50000 samples)
-n = 50000
+n = args.n_samples
 km = kmapper.KeplerMapper()
 ## TODO: parameter tuning
 graph = km.map(X=v[:n], lens=f[:n], overlap_perc=0.50,
                 clusterer=cluster.DBSCAN(eps=0.2, min_samples=5, metric="cosine"))
 #                clusterer=cluster.AgglomerativeClustering(n_clusters=5,linkage="complete",affinity="cosine"))
-html = km.visualize(graph, color_function=color, custom_tooltips=df['categories'], path_html=args.output)
+html = km.visualize(graph, color_function=color, path_html=args.output,
+    #custom_tooltips=df['categories']
+    custom_tooltips=df['title']
+)
 
 #import networkx as nx
 #nx_graph = kmapper.adapter.to_nx(graph)
