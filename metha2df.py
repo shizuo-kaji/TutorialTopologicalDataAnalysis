@@ -3,7 +3,7 @@
 ## Requirements
 # conda install gensim nltk
 # pip install kmapper
-
+#%%
 import os, gzip, glob
 import pickle
 from datetime import datetime
@@ -22,6 +22,9 @@ import numpy as np
 from sklearn.preprocessing import LabelEncoder
 import kmapper
 from sklearn import datasets,cluster
+from sklearn.manifold import Isomap
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.decomposition import PCA
 
 arXiv_prefix = '{http://arxiv.org/OAI/arXiv/}'
 
@@ -99,7 +102,7 @@ def fit_doc2vec(df):
     return(models.Doc2Vec(documents=sentences, vector_size=30, window=15, min_count=1, workers=4, dm=0))  ## parameter tuning
 
 
-
+#%%
 #### start here
 # argument parsing
 parser = argparse.ArgumentParser()
@@ -107,8 +110,12 @@ parser.add_argument('--metha_dir', default='.metha', type=str, help='Directory c
 parser.add_argument('--df_name', '-d', default='math_2007.pkl', type=str, help='name of the dataframe file')
 parser.add_argument('--n_samples', '-n', default=50000, type=int, help='the number of samples to visualise')
 parser.add_argument('--model', '-m', default='doc2vec_arxiv.model', type=str, help='name of the doc2vec model')
+parser.add_argument('--target', '-t', default='doc', type=str, choices=['word','doc'], help='what vectors to visualise')
 parser.add_argument('--output', '-o', default='output.html', type=str, help='name of the output html file')
-args = parser.parse_args()
+
+#args = parser.parse_args()
+
+args = parser.parse_args('')
 
 ## Main
 # parse downloaded data by metha and compile into a dataframe
@@ -136,27 +143,50 @@ else:
 
 # Visualisation
 print("Creating Visualisation...")
-v = np.load(args.model+".dv.vectors.npy")
 # define label and filter
-label = [w[0] for w in df['categories']]
-le = LabelEncoder()
-le = le.fit(label)
-color = le.transform(label)
-f = df['time']  # filter is submission date
-#f = km.project(v) 
-
-#%% Kepler Mapper (use only 50000 samples)
 n = args.n_samples
-km = kmapper.KeplerMapper()
-## TODO: parameter tuning
-graph = km.map(X=v[:n], lens=f[:n], overlap_perc=0.50,
-                clusterer=cluster.DBSCAN(eps=0.2, min_samples=5, metric="cosine"))
-#                clusterer=cluster.AgglomerativeClustering(n_clusters=5,linkage="complete",affinity="cosine"))
-html = km.visualize(graph, color_function=color, path_html=args.output,
-    #custom_tooltips=df['categories']
-    custom_tooltips=df['title']
-)
+km = kmapper.KeplerMapper(verbose=2)
+#f = km.project(v) 
+#%% Kepler Mapper (use only 50000 samples)
+
+if args.target == 'word':
+    v = model.wv.vectors
+    print(v.shape)
+    projected_X = km.fit_transform(v[:n],
+        projection=[PCA(n_components=2)],
+        scaler=[None, None, MinMaxScaler()])
+    graph = km.map(projected_X,
+                   #inverse_X=None,
+                   clusterer=cluster.AgglomerativeClustering(n_clusters=3,linkage="complete",affinity="cosine"),)
+                   #overlap_perc=0.33)
+    html = km.visualize(graph, path_html=args.output,
+        custom_tooltips=np.array(model.wv.index_to_key[:n])
+    )
+else:
+    label = [w[0] for w in df['categories']]
+    le = LabelEncoder()
+    le = le.fit(label)
+    color = le.transform(label)
+    v = np.load(args.model+".dv.vectors.npy")
+    print(v.shape)
+    projected_X = km.fit_transform(v[:n],
+        projection=[PCA(n_components=2)],
+        scaler=[None, None, MinMaxScaler()])
+    ## TODO: parameter tuning
+    f = df['time']  # filter is submission date
+    graph = km.map(X=v[:n], lens=f[:n], 
+                    #overlap_perc=0.50,
+                    clusterer=cluster.DBSCAN(eps=0.2, min_samples=5, metric="cosine"))
+    #                clusterer=cluster.AgglomerativeClustering(n_clusters=5,linkage="complete",affinity="cosine"))
+    html = km.visualize(graph, path_html=args.output,
+        #color_values=color, 
+        #custom_tooltips=df['categories']
+        custom_tooltips=df['title']
+    )
 
 #import networkx as nx
 #nx_graph = kmapper.adapter.to_nx(graph)
 #nx.draw(nx_graph)
+
+# %%
+
