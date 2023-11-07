@@ -6,9 +6,9 @@ This Jupyter-note book is prepared for the online event:
 being held on 18,19 June 2020.
 
 ## Main Examples
-Our main example runs on Google Colaboratory so that you do not have to setup Python environment on your computer.
+Our [main example](TopologicalDataAnalysisWithPython.ipynb) runs on Google Colaboratory so that you do not have to set up a Python environment on your computer.
 
-[This is a link to the Jupyter notebook](https://colab.research.google.com/github/shizuo-kaji/TutorialTopologicalDataAnalysis/blob/master/TopologicalDataAnalysisWithPython.ipynb).
+[Open in Google Colaboratory](https://colab.research.google.com/github/shizuo-kaji/TutorialTopologicalDataAnalysis/blob/master/TopologicalDataAnalysisWithPython.ipynb).
 
 This includes
 - Feature extraction using persistent homology from various types of data (point cloud, graph, image, volume, time-series)
