@@ -1,31 +1,45 @@
-# Tutorial on Topological Data Analysis
-Written by Shizuo KAJI
+# Tutorial on Topological Data Analysis  
+*Written by Shizuo Kaji*
 
-This Jupyter-note book is prepared for the online event:
-[TDA for Applications: Tutorial and Workshop](https://sites.google.com/view/tda-application-tutorial/)
-being held on 18,19 June 2020.
+This Jupyter Notebook was originally prepared for the online event:  
+**[TDA for Applications: Tutorial and Workshop](https://sites.google.com/view/tda-application-tutorial/)**  
+held on **18–19 June 2020**.
 
-## Main Examples
-Our [main example](TopologicalDataAnalysisWithPython.ipynb) runs on Google Colaboratory so that you do not have to set up a Python environment on your computer.
+---
 
-[Open in Google Colaboratory](https://colab.research.google.com/github/shizuo-kaji/TutorialTopologicalDataAnalysis/blob/master/TopologicalDataAnalysisWithPython.ipynb).
+## Main Examples  
 
-This includes
-- Feature extraction using persistent homology from various types of data (point cloud, graph, image, volume, time-series)
-- Regression/Classification using topological features
-- Dimension reduction preserving topological features
-- Visualisation revealing the shape of data
+Our [main example notebook](TopologicalDataAnalysisWithPython.ipynb) is designed to run on **Google Colaboratory**, so you don’t need to set up a Python environment on your computer.  
 
-## Deep Learning X TDA
-How Deep Learning and Persistent homology can be combined is demonstrated [here](https://github.com/shizuo-kaji/HomologyCNN).
+[**Open in Google Colaboratory**](https://colab.research.google.com/github/shizuo-kaji/TutorialTopologicalDataAnalysis/blob/master/TopologicalDataAnalysisWithPython.ipynb)
 
-## NLP Example (vectorise and visualise)
-As an example of Natural Language Processing, we look at maths papers on arXiv.
-This example runs only locally and not on Google Colab.
+This notebook covers:  
+- **Feature extraction** using persistent homology from various types of data:  Point clouds, Graphs, Images, Volumes, Time-series data  
+- **Regression and classification** using topological features  
+- **Dimension reduction** while preserving topological features  
+- **Visualization** to reveal the shape of data  
 
-[Here is an instruction](NLP_example.md)
+---
 
-## Reference
+**CAUTION**
+The following examples are no longer maintained.
 
-- [Persistent homology - An introduction via interactive examples](https://iuricichf.github.io/ICT/index.html) provides quick access to the theory of persistent homology.
+They are not compatible with Google Colaboratory.
 
+### Deep Learning × TDA  
+
+We demonstrate how **deep learning** can be combined with **persistent homology** in this repository:  
+[**HomologyCNN**](https://github.com/shizuo-kaji/HomologyCNN)  
+
+### NLP Example: Vectorization and Visualization  
+
+As an example of **Natural Language Processing (NLP)**, we analyze math papers from arXiv.  
+
+For setup instructions, refer to the [**NLP Example Guide**](NLP_example.md).  
+
+---
+
+### Reference  
+
+- **[Persistent Homology - An Introduction via Interactive Examples](https://iuricichf.github.io/ICT/index.html):**  
+  A quick and interactive introduction to the theory of persistent homology.  
