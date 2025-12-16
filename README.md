@@ -1,15 +1,11 @@
 # Tutorial on Topological Data Analysis  
 *Written by Shizuo Kaji*
 
-This Jupyter Notebook was originally prepared for the online event:  
-**[TDA for Applications: Tutorial and Workshop](https://sites.google.com/view/tda-application-tutorial/)**  
-held on **18–19 June 2020**.
-
 ---
 
 ## Main Examples  
 
-Our [main example notebook](TopologicalDataAnalysisWithPython.ipynb) is designed to run on **Google Colaboratory**, so you don’t need to set up a Python environment on your computer.  
+Our main example notebook [**TopologicalDataAnalysisWithPython.ipynb**](TopologicalDataAnalysisWithPython.ipynb) is designed to run on **Google Colaboratory**, so you don’t need to set up a Python environment on your computer.  
 
 [**Open in Google Colaboratory**](https://colab.research.google.com/github/shizuo-kaji/TutorialTopologicalDataAnalysis/blob/master/TopologicalDataAnalysisWithPython.ipynb)
 
@@ -19,21 +15,19 @@ This notebook covers:
 - **Dimension reduction** while preserving topological features  
 - **Visualization** to reveal the shape of data  
 
+This Jupyter Notebook was originally prepared for the online event:  
+**[TDA for Applications: Tutorial and Workshop](https://sites.google.com/view/tda-application-tutorial/)**  
+held on **18–19 June 2020**.
+
 ---
 
-**CAUTION**
-The following examples are no longer maintained.
+## Older demos
 
-They are not compatible with Google Colaboratory.
-
-### Deep Learning × TDA  
-
-We demonstrate how **deep learning** can be combined with **persistent homology** in this repository:  
-[**HomologyCNN**](https://github.com/shizuo-kaji/HomologyCNN)  
+The following examples are no longer maintained, and not compatible with Google Colaboratory.
 
 ### NLP Example: Vectorization and Visualization  
 
-As an example of **Natural Language Processing (NLP)**, we analyze math papers from arXiv.  
+As an example of **Natural Language Processing (NLP)**, we analyze math papers from arXiv and [**visualize the data using the mapper**](arxiv_mapper.html).
 
 For setup instructions, refer to the [**NLP Example Guide**](NLP_example.md).  
 
