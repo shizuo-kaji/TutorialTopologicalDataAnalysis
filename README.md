@@ -14,6 +14,8 @@ This repository provides hands-on tutorials for topological data analysis (TDA),
 The tutorial notebook includes:
 - **Interactive intuition-building** for persistent homology of Vietoris-Rips and cubical complexes
 - **Feature extraction** using persistent homology from point clouds, graphs, images, volumes, and time-series data
+- **Representative cycles** that locate the loops behind persistence intervals in images
+- **Zigzag persistence** for tracking components and holes through time-varying images
 - **Regression and classification** using topological features
 - **Dimension reduction** while preserving topological features
 - **Visualisation** to reveal the shape of data
